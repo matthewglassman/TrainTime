@@ -39,7 +39,7 @@ $("#trainadd").on("click", function(){
 	//Perform calculations with Moment Here.  Make new variables global.
 //---------------------------------------------------------------------------------------------------------------------------
 	firstTrain = moment(firstTrain,'HH:mm');
-	
+	nextTrain = moment(nextTrain, 'HH:mm');
 	var computeTrainTimes;
 
 	if (firstTrain.isBefore(currentTime)){
@@ -48,8 +48,13 @@ $("#trainadd").on("click", function(){
 			computeTrainTimes = moment(firstTrain).add(trainFrequency,'minutes');
 		}
 		nextTrain = moment(computeTrainTimes).diff(currentTime, 'minutes');
+		console.log(nextTrain);
+	}else{
+		firstTrain = nextTrain;
+		minutesAway = currentTime.to(firstTrain);
+		console.log(minutesAway);
 
-}
+	}
 //---------------------------------------------------------------------------------------------------------------------------
 
 //.ref and .push the items to database.
