@@ -22,10 +22,11 @@ var currentTime = moment().format('HH:mm');
 
 console.log(currentTime);
 
+//checking database for data and creating snapshot
 database.ref().on("value", function(snapshot) {
 
 
-
+$("#train_table").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" + trainFrequency + "</td><td>" + nextTrain + "</td><td>" + minutesAway + "</td></tr>");
 
 //Capture Button Click
 $("#trainadd").on("click", function(){
@@ -50,11 +51,11 @@ $("#trainadd").on("click", function(){
 		nextTrain = moment(computeTrainTimes).diff(currentTime, 'minutes');
 		console.log(nextTrain);
 	}else{
-		firstTrain = nextTrain;
-		minutesAway = currentTime.to(firstTrain);
+		nextTrain = firstTrain;
+		minutesAway = currentTime.to(nextTrain);
 		console.log(minutesAway);
+	};
 
-	}
 //---------------------------------------------------------------------------------------------------------------------------
 
 //.ref and .push the items to database.
