@@ -30,4 +30,13 @@ $("#trainadd").on("click", function(){
 	trainDestination = $("#destination-input").val().trim();
 	trainFrequency = $("#frequency-input").val().trim();
 	firstTrain = $("#firsttrain-input").val().trim();
+
+	//Perform calculations with Moment Here.  Make new variables global.
+//---------------------------------------------------------------------------------------------------------------------------
+
+//---------------------------------------------------------------------------------------------------------------------------
+
+//.ref and .push the items to database.
 })
+
+//create event listener to take snapshot from ref and append to the train table.
