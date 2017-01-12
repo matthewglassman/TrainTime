@@ -18,9 +18,14 @@ var trainFrequency = 0;
 var firstTrain = 0;
 var nextTrain = 0;
 var minutesAway = 0;
-var currentTime = moment().format('LT');
+var currentTime = moment().format('HH:mm');
 
 console.log(currentTime);
+
+database.ref().on("value", function(snapshot) {
+
+
+
 
 //Capture Button Click
 $("#trainadd").on("click", function(){
@@ -33,7 +38,18 @@ $("#trainadd").on("click", function(){
 
 	//Perform calculations with Moment Here.  Make new variables global.
 //---------------------------------------------------------------------------------------------------------------------------
+	firstTrain = moment(firstTrain,'HH:mm');
+	
+	var computeTrainTimes;
 
+	if (firstTrain.isBefore(currentTime)){
+
+		while(firstTrain.isBefore(currentTime)){
+			computeTrainTimes = moment(firstTrain).add(trainFrequency,'minutes');
+		}
+		nextTrain = moment(computeTrainTimes).diff(currentTime, 'minutes');
+
+}
 //---------------------------------------------------------------------------------------------------------------------------
 
 //.ref and .push the items to database.
