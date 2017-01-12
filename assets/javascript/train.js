@@ -37,6 +37,15 @@ $("#trainadd").on("click", function(){
 //---------------------------------------------------------------------------------------------------------------------------
 
 //.ref and .push the items to database.
-})
+database.ref().push({
+	'Train': trainName,
+	'Destination': trainDestination,
+	'Frequency': trainFrequency,
+	'Next Train': nextTrain, //From Calculations
+	'Minutes Away': minutesAway
+});
+return false;
+});
 
 //create event listener to take snapshot from ref and append to the train table.
+
