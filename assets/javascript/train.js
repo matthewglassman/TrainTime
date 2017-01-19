@@ -18,7 +18,7 @@ var trainFrequency = 0;
 var firstTrain;
 var nextTrain;
 var minutesAway = 0;
-var currentTime = moment().format('HH:mm');
+var currentTime = moment().format('hh:mm');
 
 console.log(currentTime);
 
@@ -30,17 +30,17 @@ $("#trainadd").on("click", function(event){
 	trainDestination = $("#destination-input").val().trim();
 	trainFrequency = $("#frequency-input").val().trim();
 	firstTrain = $("#firsttrain-input").val().trim();
-
+	firstTrain = moment(firstTrain, "HH:mm");
 	console.log (trainName);
 	console.log (trainDestination);
 	console.log (firstTrain);
 	console.log (trainFrequency);
 
-	firstTrain = moment(firstTrain,'hh:mm');
-	nextTrain = moment(nextTrain, 'hh:mm');
+	newfirstTrain = moment(firstTrain).format('hh:mm');
+	//nextTrain = moment(nextTrain, 'hh:mm');
 	var computeTrainTimes;
-	console.log(firstTrain);
-	console.log(nextTrain);
+	console.log(newfirstTrain);
+	//console.log(nextTrain);
 
 	// if (firstTrain.isBefore(currentTime)){
 
