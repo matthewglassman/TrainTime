@@ -18,9 +18,9 @@ var trainFrequency = 0;
 var firstTrain;
 var nextTrain;
 var minutesAway = 0;
-var currentTime = moment().format('hh:mm');
+//var currentTime = moment().format('hh:mm');
 
-console.log(currentTime);
+//console.log(currentTime);
 
 $("#trainadd").on("click", function(event){
 	event.preventDefault();
@@ -30,30 +30,47 @@ $("#trainadd").on("click", function(event){
 	trainDestination = $("#destination-input").val().trim();
 	trainFrequency = $("#frequency-input").val().trim();
 	firstTrain = $("#firsttrain-input").val().trim();
-	firstTrain = moment(firstTrain, "HH:mm");
-	console.log (trainName);
-	console.log (trainDestination);
-	console.log (firstTrain);
-	console.log (trainFrequency);
+	
+	currentTime = moment().format('hh:mm');
 
-	newfirstTrain = moment(firstTrain).format('hh:mm');
-	//nextTrain = moment(nextTrain, 'hh:mm');
-	var computeTrainTimes;
-	console.log(newfirstTrain);
-	//console.log(nextTrain);
+	if (firstTrain <= currentTime){
 
-	// if (firstTrain.isBefore(currentTime)){
+	//convert times
 
-	// 	while(firstTrain.isBefore(currentTime)){
-	// 		computeTrainTimes = moment(firstTrain).add(trainFrequency,'minutes');
-	// 	}
-	// 	nextTrain = moment(computeTrainTimes).diff(currentTime, 'minutes');
-	// 	console.log(nextTrain);
-	// }else{
-	// 	nextTrain = firstTrain;
-	// 	minutesAway = currentTime.to(nextTrain);
-	// 	console.log(minutesAway);
-	// };
+	firstTrainTime = moment(firstTrain, "hh:mm").subtract(1,"years");
+	console.log(firstTrainTime);
+
+} else {
+
+	firstTrainTime = moment(firstTrain, "hh:mm");
+	console.log(firstTrainTime);
+}
+	
+
+	diffTime = moment().diff(moment(firstTrainTime), "minutes");
+
+	timeRemainder = diffTime % trainFrequency;
+
+	minutesAway = trainFrequency - timeRemainder;
+
+	nextTrain = moment().add(minutesAway, "minutes");
+	nextTrain = moment(nextTrain).format("hh:mm");
+
+	console.log(firstTrainTime);
+	console.log(currentTime);
+	console.log(diffTime);
+	console.log(timeRemainder);
+	console.log(minutesAway);
+	console.log(nextTrain);
+
+
+	database.ref().push({
+	'Train': trainName,
+	'Destination': trainDestination,
+	'Frequency': trainFrequency,
+	'Next Train': nextTrain, //From Calculations
+	'Minutes Away': minutesAway
+	});
 });
 
 // //Capture Button Click
