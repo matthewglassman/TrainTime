@@ -48,7 +48,8 @@ $("#trainadd").on("click", function(event){
 	
 
 	diffTime = moment().diff(moment(firstTrainTime), "minutes");
-
+	diffTime = Math.abs(diffTime);
+	
 	timeRemainder = diffTime % trainFrequency;
 
 	minutesAway = trainFrequency - timeRemainder;
