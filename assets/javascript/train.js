@@ -24,32 +24,24 @@ var minutesAway = 0;
 
 $("#trainadd").on("click", function(event){
 	event.preventDefault();
-	alert("You clicked me!");
+	//alert("You clicked me!");
 
 	trainName = $("#trainname-input").val().trim();
 	trainDestination = $("#destination-input").val().trim();
 	trainFrequency = $("#frequency-input").val().trim();
 	firstTrain = $("#firsttrain-input").val().trim();
 	
-	currentTime = moment().format('hh:mm');
+	firstTrainTime = moment(firstTrain, "HH:mm");
+	currentTime = moment().format('HH:mm');
 
-	if (firstTrain <= currentTime){
+	if (firstTrainTime.isBefore(currentTime)){
 
 	//convert times
-
+	currentTime = moment().format('hh:mm');
 	firstTrainTime = moment(firstTrain, "hh:mm").subtract(1,"years");
-	console.log(firstTrainTime);
-
-} else {
-
-	firstTrainTime = moment(firstTrain, "hh:mm");
-	console.log(firstTrainTime);
-}
-	
-
 	diffTime = moment().diff(moment(firstTrainTime), "minutes");
 	diffTime = Math.abs(diffTime);
-	
+
 	timeRemainder = diffTime % trainFrequency;
 
 	minutesAway = trainFrequency - timeRemainder;
@@ -64,13 +56,48 @@ $("#trainadd").on("click", function(event){
 	console.log(minutesAway);
 	console.log(nextTrain);
 
+} else {
+
+	firstTrainTime = moment(firstTrain, "hh:mm");
+	nextTrain = firstTrainTime;
+	diffTime = moment().diff(moment(firstTrainTime), "minutes");
+	diffTime = Math.abs(diffTime);
+	//timeRemainder = diffTime % trainFrequency;
+	minutesAway = diffTime
+	console.log(firstTrainTime);
+	console.log(currentTime);
+	//console.log(diffTime);
+	//console.log(timeRemainder);
+	console.log(minutesAway);
+	console.log(nextTrain);
+};
+	
+
+	// diffTime = moment().diff(moment(firstTrainTime), "minutes");
+	// diffTime = Math.abs(diffTime);
+
+	// timeRemainder = diffTime % trainFrequency;
+
+	// minutesAway = trainFrequency - timeRemainder;
+
+	// nextTrain = moment().add(minutesAway, "minutes");
+	// nextTrain = moment(nextTrain).format("hh:mm");
+
+	// console.log(firstTrainTime);
+	// console.log(currentTime);
+	// console.log(diffTime);
+	// console.log(timeRemainder);
+	// console.log(minutesAway);
+	// console.log(nextTrain);
+
 
 	database.ref().push({
 	'Train': trainName,
 	'Destination': trainDestination,
+	'First Train': firstTrain,
 	'Frequency': trainFrequency,
-	'Next Train': nextTrain, //From Calculations
-	'Minutes Away': minutesAway
+	//'Next Train': nextTrain, //From Calculations
+	//'Minutes Away': minutesAway
 	});
 });
 
