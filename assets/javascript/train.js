@@ -31,17 +31,17 @@ $("#trainadd").on("click", function(event){
 	trainFrequency = $("#frequency-input").val().trim();
 	firstTrain = $("#firsttrain-input").val().trim();
 	
-	firstTrainTime = moment(firstTrain, "HH:mm");
 	currentTime = moment().format('HH:mm');
 
-	if (firstTrainTime.isBefore(currentTime)){
+	if (firstTrain <= currentTime){
 
 	//convert times
-	currentTime = moment().format('hh:mm');
-	firstTrainTime = moment(firstTrain, "hh:mm").subtract(1,"years");
-	diffTime = moment().diff(moment(firstTrainTime), "minutes");
-	diffTime = Math.abs(diffTime);
 
+	firstTrainTime = moment(firstTrain, "hh:mm").subtract(1,"years");
+	//console.log(firstTrainTime);
+	diffTime = moment().diff(moment(firstTrainTime), "minutes");
+	//diffTime = Math.abs(diffTime);
+	
 	timeRemainder = diffTime % trainFrequency;
 
 	minutesAway = trainFrequency - timeRemainder;
@@ -56,21 +56,94 @@ $("#trainadd").on("click", function(event){
 	console.log(minutesAway);
 	console.log(nextTrain);
 
+
+
 } else {
 
-	firstTrainTime = moment(firstTrain, "hh:mm");
-	nextTrain = firstTrainTime;
+	firstTrainTime = moment(firstTrain, "HH:mm");//.subtract(1,"years");
+	//console.log(firstTrainTime);
 	diffTime = moment().diff(moment(firstTrainTime), "minutes");
 	diffTime = Math.abs(diffTime);
+	
 	//timeRemainder = diffTime % trainFrequency;
-	minutesAway = diffTime
+
+	minutesAway = diffTime;
+
+	//nextTrain = moment().add(minutesAway, "minutes");
+	//nextTrain = moment(nextTrain).format("hh:mm");
+	nextTrain = moment(firstTrainTime).format("hh:mm");
 	console.log(firstTrainTime);
 	console.log(currentTime);
-	//console.log(diffTime);
+	console.log(diffTime);
 	//console.log(timeRemainder);
 	console.log(minutesAway);
 	console.log(nextTrain);
+
+	// firstTrainTime = moment(firstTrain, "hh:mm").add(1, "years");
+	// diffTime = moment().diff(moment(firstTrainTime), "minutes");
+	// diffTime = Math.abs(diffTime);	
+	// timeRemainder = diffTime % trainFrequency;
+	// minutesAway = trainFrequency - timeRemainder;
+	// firstTrainTime = nextTrain;
+
+	// console.log(firstTrainTime);
+	// console.log(currentTime);
+	// console.log(diffTime);
+	// console.log(timeRemainder);
+	// console.log(minutesAway);
+	// console.log(nextTrain);
+
 };
+	
+
+	
+
+
+
+
+
+
+
+
+// 	firstTrainTime = moment(firstTrain, 'HH:mm')
+	
+// 	if (firstTrainTime <= currentTime){
+// 		alert("first train test success!");
+// 	//convert times
+
+// 	firstTrainTime = moment(firstTrain, "hh:mm").subtract(1,"years");
+// 	diffTime = moment().diff(moment(firstTrainTime), "minutes");
+// 	//diffTime = Math.abs(diffTime);
+
+// 	timeRemainder = diffTime % trainFrequency;
+
+// 	minutesAway = trainFrequency - timeRemainder;
+
+// 	nextTrain = moment().add(minutesAway, "minutes");
+// 	nextTrain = moment(nextTrain).format("hh:mm");
+
+// 	console.log(firstTrainTime);
+// 	console.log(currentTime);
+// 	console.log(diffTime);
+// 	console.log(timeRemainder);
+// 	console.log(minutesAway);
+// 	console.log(nextTrain);
+
+// } else {
+
+// 	firstTrainTime = moment(firstTrain, "hh:mm");
+// 	nextTrain = firstTrainTime;
+// 	diffTime = moment().diff(moment(firstTrainTime), "minutes");
+// 	diffTime = Math.abs(diffTime);
+// 	//timeRemainder = diffTime % trainFrequency;
+// 	minutesAway = diffTime
+// 	console.log(firstTrainTime);
+// 	console.log(currentTime);
+// 	//console.log(diffTime);
+// 	//console.log(timeRemainder);
+// 	console.log(minutesAway);
+// 	console.log(nextTrain);
+// };
 	
 
 	// diffTime = moment().diff(moment(firstTrainTime), "minutes");
@@ -96,9 +169,10 @@ $("#trainadd").on("click", function(event){
 	'Destination': trainDestination,
 	'First Train': firstTrain,
 	'Frequency': trainFrequency,
+
 	//'Next Train': nextTrain, //From Calculations
 	//'Minutes Away': minutesAway
-	});
+	 });
 });
 
 // //Capture Button Click
