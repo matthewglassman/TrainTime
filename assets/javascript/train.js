@@ -165,10 +165,10 @@ $("#trainadd").on("click", function(event){
 
 
 	database.ref().push({
-	'Train': trainName,
-	'Destination': trainDestination,
-	'First Train': firstTrain,
-	'Frequency': trainFrequency,
+	Train: trainName,
+	Destination: trainDestination,
+	FirstTrain: firstTrain,
+	Frequency: trainFrequency,
 
 	//'Next Train': nextTrain, //From Calculations
 	//'Minutes Away': minutesAway
@@ -227,11 +227,11 @@ $("#trainadd").on("click", function(event){
 
 // //create event listener to take snapshot from ref and append to the train table.
 // //checking database for data and creating snapshot
-// database.ref().on("child_added", function(childSnapshot) {
+database.ref().on("child_added", function(childSnapshot) {
+var cs = childSnapshot.val();
 
+$("#train_table").append("<tr><td>" + cs.Train + "</td><td>" + cs.Destination + "</td><td>" + cs.Frequency + "</td><td>" + nextTrain + "</td><td>" + minutesAway + "</td></tr>");
 
-// $("#train_table").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" + trainFrequency + "</td><td>" + nextTrain + "</td><td>" + minutesAway + "</td></tr>");
-
-// }, function(errorObject) {
-//       console.log("Errors handled: " + errorObject.code);
-// });
+}, function(errorObject) {
+      console.log("Errors handled: " + errorObject.code);
+});
